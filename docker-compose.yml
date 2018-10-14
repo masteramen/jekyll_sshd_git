@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  jenkins:
+    image: wine6823/jenkins:1.1
+    restart: always
+    ports:
+      - "18080:8080"
+    volumes:
+      - $HOME/.ssh:/root/.ssh
+      - $HOME/jenkins_home:/var/jenkins_home
+
+  jekyll:
+    image: bretfisher/jekyll-serve
+    volumes:
+      - ../jekyll:/site
+    ports:
+      - "80:4000"
