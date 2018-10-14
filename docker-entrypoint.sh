@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-/usr/sbin/sshd -D &
 #cd /site
 
 
@@ -20,6 +19,9 @@ if [ ! -f Gemfile ]; then
   echo "NOTE: To create a new site, add '-e JEKYLL_NEW=true' to the above command"
   exit 1
 fi
+/usr/sbin/sshd -D &
+/usr/sbin/crond &
+echo "* 1 * * * /site/sh/build.sh" >>/var/spool/cron/crontabs/root
 
 bundle install
 
